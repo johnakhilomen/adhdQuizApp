@@ -103,8 +103,7 @@ function renderList(){
 }
 
 function main() {
-  let startPage = generateStartPage();
-  $('main').html(startpage);
+  $('main').html(generateStartPage());
 }
 
 function SubmitAnswer(event) {
