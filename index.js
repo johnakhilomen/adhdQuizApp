@@ -63,59 +63,11 @@ function generateQView(){
       </form>
       </div>`;
     }
+    else {
+      html = quizConclusion();
+    }
     $('.main').html(html);
     }
-  
-
-  //let question = popQuiz[0];
-/*if (popQuiz.view === 'multiple-choice') {
-  return `<div class="slides">
-  <div class="question">${popQuiz[0].question}</div><br><br>
-  <form class="question-form">
-  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[0]}">
-  <label for="popQuiz.answers[0]">${popQuiz[0].answers[0]}</label><br>
-  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[1]}">
-  <label for="popQuiz.answers[1]">${popQuiz[0].answers[1]}</label><br>
-  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[2]}">
-  <label for="popQuiz.answers[2]">${popQuiz[0].answers[2]}</label><br>
-  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[3]}">
-  <label for="popQuiz.answers[3]">${popQuiz[0].answers[3]}</label><br><br>
-  <button type="submit" id="verify-answer">Verifiy</button>
-  <button type="submit" id="next-q">Next Question</button>
-</form>
-</div>`;
-} else if (popQuiz.view === 'multiple-answer'){
-return `<div class="slides">
-<div class="question">${popQuiz.question}</div><br><br>
-<form class="question-form">
-<input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz.answers[0]}">
-<label for="popQuiz.answers[0]">${popQuiz.answers[0]}</label><br>
-<input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz.answers[1]}">
-<label for="popQuiz.answers[1]">${popQuiz.answers[1]}</label><br>
-<input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz.answers[2]}">
-<label for="popQuiz.answers[2]">${popQuiz.answers[2]}</label><br>
-<input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz.answers[3]}">
-<label for="popQuiz.answers[3]">${popQuiz.answers[3]}</label><br><br>
-<button type="submit" id="verify-answer">Verifiy</button>
-<button type="submit" id="next-q">Next Question</button>
-</form>
-</div>`;
-} else if (popQuiz.view === 'boolean'){
-return `<div class="slides">
-<div class="question">${popQuiz.question}</div><br><br>
-<form class="question-form">
-<input type="radio" id="boolean-true" names="answers" value="${popQuiz.answers[0]}">
-<label for="popQuiz.answers[0]">${popQuiz.answers[0]}</label><br>
-<input type="radio" id="boolean-false" names="answers" value="${popQuiz.answers[1]}">
-<label for="popQuiz.answers[1]">${popQuiz.answers[1]}</label><br><br>
-<button type="submit" id="verify-answer">Verifiy</button>
-<button type="submit" id="next-q">Next Question</button>
-</form>
-</div>`;
-} else {
-  //conclusion page
-  quizConclusion();
-}*/
 }
 
 function generateStartPage() {
