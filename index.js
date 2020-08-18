@@ -1,5 +1,6 @@
 // jQuery quiz-app
 document.write('<script type="text/javascript" src="store.js" ></script>');
+const popQuiz = popQuizData;
 console.log(popQuiz);
 
 //global variables
@@ -9,19 +10,34 @@ const qNum = 0;
 const name = '';
 
 function generateQView(){
-  let question = popQuiz[currentQuestion];
-if (popQuiz.view === 'multiple-choice') {
   return `<div class="slides">
-  <div class="question">${popQuiz.question}</div><br><br>
+  <div class="question">${popQuiz[0].question}</div><br><br>
+  <form class="question-form">
+  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz[0].answers[0]}">
+  <label for="popQuiz.answers[0]">${popQuiz[0].answers[0]}</label><br>
+  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz[0].answers[1]}">
+  <label for="popQuiz.answers[1]">${popQuiz[0].answers[1]}</label><br>
+  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz[0].answers[2]}">
+  <label for="popQuiz.answers[2]">${popQuiz[0].answers[2]}</label><br>
+  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz[0].answers[3]}">
+  <label for="popQuiz.answers[3]">${popQuiz[0].answers[3]}</label><br><br>
+  <button type="submit" id="verify-answer">Verifiy</button>
+  <button type="submit" id="next-q">Next Question</button>
+</form>
+</div>`;
+  //let question = popQuiz[0];
+/*if (popQuiz.view === 'multiple-choice') {
+  return `<div class="slides">
+  <div class="question">${popQuiz[0].question}</div><br><br>
   <form class="question-form">
   <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[0]}">
-  <label for="popQuiz.answers[0]">${popQuiz.answers[0]}</label><br>
+  <label for="popQuiz.answers[0]">${popQuiz[0].answers[0]}</label><br>
   <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[1]}">
-  <label for="popQuiz.answers[1]">${popQuiz.answers[1]}</label><br>
+  <label for="popQuiz.answers[1]">${popQuiz[0].answers[1]}</label><br>
   <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[2]}">
-  <label for="popQuiz.answers[2]">${popQuiz.answers[2]}</label><br>
+  <label for="popQuiz.answers[2]">${popQuiz[0].answers[2]}</label><br>
   <input type="radio" id="multiple-choice" names="answers" value="${popQuiz.answers[3]}">
-  <label for="popQuiz.answers[3]">${popQuiz.answers[3]}</label><br><br>
+  <label for="popQuiz.answers[3]">${popQuiz[0].answers[3]}</label><br><br>
   <button type="submit" id="verify-answer">Verifiy</button>
   <button type="submit" id="next-q">Next Question</button>
 </form>
@@ -57,7 +73,7 @@ return `<div class="slides">
 } else {
   //conclusion page
   quizConclusion();
-}
+}*/
 }
 
 function generateStartPage() {
@@ -97,9 +113,10 @@ function quizConclusion(){
 }
 
 function renderList(){
+  event.preventDefault();
   let html = generateQView();
   console.log(html);
-  $('main').html(html);
+  $('.main').html(html);
 }
 
 function main() {
@@ -108,6 +125,7 @@ function main() {
 
 function SubmitAnswer(event) {
   event.preventDefault();
+  console.log("answer submitted!");
   let answer = $('input[name=answers]:checked').val();
   if(store.popQuiz[store.currentQuestions].correctAnswer == answer){
     alert(`You are correct!`);
@@ -153,6 +171,6 @@ $('main').on('click','.start-quiz-button', function() {
   renderList();
 });
 
-//$('main').on('submit', '.form', submitAnswer);
+$('main').on('submit', '.js-quiz-app-form-name', SubmitAnswer);
 
 $(function() { main() });
