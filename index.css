@@ -1,0 +1,46 @@
+header {
+  font-family: cursive;
+  height: fit-content;
+}
+
+header, footer{
+  text-align: center;
+  background-color: blanchedalmond;
+  border: black;
+  border-style: solid;
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+  }
+form {
+  
+}  
+.js-quiz-app-form-bottons, .js-quiz-app-form-checkbox, .slides {
+  text-align: center;
+}
+
+}
+  button, input[type="text"] {
+    padding: 5px;
+    text-align: center;
+  }
+  
+  button:hover {
+    cursor: pointer;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .wrapper {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  /* views: ['splash','multiple-choice','boolean', 'multiple-answer', 'ref'`] */
