@@ -10,21 +10,63 @@ const qNum = 0;
 const name = '';
 
 function generateQView(){
-  return `<div class="slides">
-  <div class="question">${popQuiz[0].question}</div><br><br>
-  <form class="question-form">
-  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz[0].answers[0]}">
-  <label for="popQuiz.answers[0]">${popQuiz[0].answers[0]}</label><br>
-  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz[0].answers[1]}">
-  <label for="popQuiz.answers[1]">${popQuiz[0].answers[1]}</label><br>
-  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz[0].answers[2]}">
-  <label for="popQuiz.answers[2]">${popQuiz[0].answers[2]}</label><br>
-  <input type="radio" id="multiple-choice" names="answers" value="${popQuiz[0].answers[3]}">
-  <label for="popQuiz.answers[3]">${popQuiz[0].answers[3]}</label><br><br>
-  <button type="submit" id="verify-answer">Verifiy</button>
-  <button type="submit" id="next-q">Next Question</button>
-</form>
-</div>`;
+  for (let i = 0; i < popQuiz.length; i++)
+  {
+    var html = "";
+    if (popQuiz[i].view === 'multiple-choice') 
+    {
+    html = `<div class="slides">
+    <div class="question">${popQuiz[i].question}</div><br><br>
+    <form class="question-form">
+    <input type="radio" id="multiple-choice" names="answers" value="${popQuiz[i].answers[0]}">
+    <label for="popQuiz.answers[0]">${popQuiz[i].answers[0]}</label><br>
+    <input type="radio" id="multiple-choice" names="answers" value="${popQuiz[i].answers[1]}">
+    <label for="popQuiz.answers[1]">${popQuiz[i].answers[1]}</label><br>
+    <input type="radio" id="multiple-choice" names="answers" value="${popQuiz[i].answers[2]}">
+    <label for="popQuiz.answers[2]">${popQuiz[i].answers[2]}</label><br>
+    <input type="radio" id="multiple-choice" names="answers" value="${popQuiz[i].answers[3]}">
+    <label for="popQuiz.answers[3]">${popQuiz[i].answers[3]}</label><br><br>
+    <button type="submit" id="verify-answer">Verifiy</button>
+    <button type="submit" id="next-q">Next Question</button>
+    </form>
+    </div>`;
+    }
+    else if (popQuiz[i].view === 'multiple-answer')
+    {
+      html = `<div class="slides">
+      <div class="question">${popQuiz[i].question}</div><br><br>
+      <form class="question-form">
+      <input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz[i].answers[0]}">
+      <label for="popQuiz.answers[0]">${popQuiz[i].answers[0]}</label><br>
+      <input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz[i].answers[1]}">
+      <label for="popQuiz.answers[1]">${popQuiz[i].answers[1]}</label><br>
+      <input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz[i].answers[2]}">
+      <label for="popQuiz.answers[2]">${popQuiz[i].answers[2]}</label><br>
+      <input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz[i].answers[3]}">
+      <label for="popQuiz.answers[3]">${popQuiz[i].answers[3]}</label><br><br>
+      <button type="submit" id="verify-answer">Verifiy</button>
+      <button type="submit" id="next-q">Next Question</button>
+      </form>
+      </div>`;
+    }
+    else if (popQuiz[i].view === 'boolean')
+    {
+      html = `<div class="slides">
+      <div class="question">${popQuiz[i].question}</div><br><br>
+      <form class="question-form">
+      <input type="radio" id="boolean-true" names="answers" value="${popQuiz[i].answers[0]}">
+      <label for="popQuiz.answers[0]">${popQuiz[i].answers[0]}</label><br>
+      <input type="radio" id="boolean-false" names="answers" value="${popQuiz[i].answers[1]}">
+      <label for="popQuiz.answers[1]">${popQuiz[i].answers[1]}</label><br><br>
+      <button type="submit" id="verify-answer">Verifiy</button>
+      <button type="submit" id="next-q">Next Question</button>
+      </form>
+      </div>`;
+    }
+    $('.main').html(html);
+    }
+  
+
   //let question = popQuiz[0];
 /*if (popQuiz.view === 'multiple-choice') {
   return `<div class="slides">
@@ -114,9 +156,10 @@ function quizConclusion(){
 
 function renderList(){
   event.preventDefault();
-  let html = generateQView();
-  console.log(html);
-  $('.main').html(html);
+  generateQView();
+  //let html = generateQView();
+  //console.log(html);
+  //$('.main').html(html);
 }
 
 function main() {
