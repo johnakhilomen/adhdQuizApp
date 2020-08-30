@@ -1,22 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 
 <head>
   <title>Quiz App</title>
-  <link rel="shortcut icon" href="#">
-  <link rel="stylesheet" href="index.css">
-  
+  <link rel='shortcut icon' href='#'>
+  <link rel='stylesheet' href='index.css'>
 </head>
 
 <body>
-    <div class="wrapper">
+    <div class='wrapper'>
     <header>
         <div>
             <h1>Pop Quiz</h1>
         </div>
     </header>
-    <main class="main">
-        Hey you
+    <main>
+        <div class="startQuiz">
+            <h2>Pop Quiz on ADHD</h2>
+            <p>Attention deficit hyperactivity disorder (ADHD) </p>
+            <button class="startButton">Start</button>
+          </div>
+          
+          <div class="scoreInfo">
+              <p>Question: <span class="questionNumber"></span>/12</p>
+              <p>Score: <span class="score"></span></p>
+          </div>
+  
+          <div class="questionDiv"></div>
+  
+          <div class="correctAnswer"></div>
+  
+          <div class="wrongAnswer"></div>
     </main>
     <footer>
         <div>

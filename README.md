@@ -1,1 +1,1 @@
-# adhdQuizApp
+# quiz-app-adhd

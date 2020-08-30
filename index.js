@@ -1,171 +1,152 @@
-// jQuery quiz-app
 document.write('<script type="text/javascript" src="store.js" ></script>');
-const popQuiz = popQuizData;
-console.log(popQuiz);
+    var questionNumber = 0;
+    var score = 0;
+    var index = 0;
 
-//global variables
-const score = 0;
-const wrongScore = 0;
-const qNum = 0;
-const name = '';
-
-function generateQView(){
-  for (let i = 0; i < popQuiz.length; i++)
-  {
-    var html = "";
-    if (popQuiz[i].view === 'multiple-choice') 
-    {
-    html = `<div class="slides">
-    <div class="question">${popQuiz[i].question}</div><br><br>
-    <form class="question-form">
-    <input type="radio" id="multiple-choice" names="answers" value="${popQuiz[i].answers[0]}">
-    <label for="popQuiz.answers[0]">${popQuiz[i].answers[0]}</label><br>
-    <input type="radio" id="multiple-choice" names="answers" value="${popQuiz[i].answers[1]}">
-    <label for="popQuiz.answers[1]">${popQuiz[i].answers[1]}</label><br>
-    <input type="radio" id="multiple-choice" names="answers" value="${popQuiz[i].answers[2]}">
-    <label for="popQuiz.answers[2]">${popQuiz[i].answers[2]}</label><br>
-    <input type="radio" id="multiple-choice" names="answers" value="${popQuiz[i].answers[3]}">
-    <label for="popQuiz.answers[3]">${popQuiz[i].answers[3]}</label><br><br>
-    <button type="submit" id="verify-answer">Verifiy</button>
-    <button type="submit" id="next-q">Next Question</button>
-    </form>
-    </div>`;
+    function updateQuestionNumber() {
+        questionNumber++;
     }
-    else if (popQuiz[i].view === 'multiple-answer')
-    {
-      html = `<div class="slides">
-      <div class="question">${popQuiz[i].question}</div><br><br>
-      <form class="question-form">
-      <input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz[i].answers[0]}">
-      <label for="popQuiz.answers[0]">${popQuiz[i].answers[0]}</label><br>
-      <input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz[i].answers[1]}">
-      <label for="popQuiz.answers[1]">${popQuiz[i].answers[1]}</label><br>
-      <input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz[i].answers[2]}">
-      <label for="popQuiz.answers[2]">${popQuiz[i].answers[2]}</label><br>
-      <input type="checkbox" id="multiple-answer" names="answers" value="${popQuiz[i].answers[3]}">
-      <label for="popQuiz.answers[3]">${popQuiz[i].answers[3]}</label><br><br>
-      <button type="submit" id="verify-answer">Verifiy</button>
-      <button type="submit" id="next-q">Next Question</button>
-      </form>
-      </div>`;
+
+    function updateScore() {
+        score++;
     }
-    else if (popQuiz[i].view === 'boolean')
-    {
-      html = `<div class="slides">
-      <div class="question">${popQuiz[i].question}</div><br><br>
-      <form class="question-form">
-      <input type="radio" id="boolean-true" names="answers" value="${popQuiz[i].answers[0]}">
-      <label for="popQuiz.answers[0]">${popQuiz[i].answers[0]}</label><br>
-      <input type="radio" id="boolean-false" names="answers" value="${popQuiz[i].answers[1]}">
-      <label for="popQuiz.answers[1]">${popQuiz[i].answers[1]}</label><br><br>
-      <button type="submit" id="verify-answer">Verifiy</button>
-      <button type="submit" id="next-q">Next Question</button>
-      </form>
-      </div>`;
+
+    function updateIndex() {
+        index++;
     }
-    else {
-      html = quizConclusion();
+
+    function quizIntro() {
+        $(".scoreInfo").hide();
+        $(".questionDiv").hide();
+        $(".correctAnswer").hide();
+        $(".wrongAnswer").hide();
     }
-    $('.main').html(html);
+
+    function generateQuizString(arr, index) {
+        var quizString = 
+        `<form>
+        <legend>${arr[index].question}</legend>
+        <input type="radio" id="choice-1" name="choice" value="${arr[index].answers[0]}" required>
+        <label for="choice-1">${arr[index].answers[0]}</label>
+        <br>
+        <input type="radio" id="choice-2" name="choice" value="${arr[index].answers[1]}">
+        <label for="choice-2">${arr[index].answers[1]}</label>
+        <br>
+        <input type="radio" id="choice-3" name="choice" value="${arr[index].answers[2]}"><label for="choice-3">${arr[index].answers[2]}</label><br><input type="radio" id="choice-4" name="choice" value="${arr[index].answers[3]}"><label for="choice-4">${arr[index].answers[3]}</label>
+        <br>
+        <div class="button"><input type="submit" class="submitAnswer"></div></form>`
+
+        return quizString;
     }
-}
 
-function generateStartPage() {
-  return `<div class="startPage">
-  <h2>Who is ready to begin?</h2>
-  <p>Our subject is A.D.H.D.</p>
-  <form id="js-quiz-app-form-name">
-      <label for="name">Name:</label>
-      <input type="text" name="quizTakerName" class="inputBox" placeholder="First Name" required /><br><br>
-  </form>
-  <form id="js-quiz-app-form-id">
-      <label for="name">I.D.: </label>
-      <input type="text" name="idNum" class="inputBox" placeholder="Student ID"><br><br>
-  </form>
-  <form class="js-quiz-app-form-bottons" id="js-quiz-app-form-bottons">
-      <button class="exit-button" type="button">Exit</button>
-      <button class="start-quiz-button" type="submit">Start Quiz</button>
-  </form>
-  <form class="js-quiz-app-form-checkbox" id="js-quiz-app-form-checkbox">
-      <input type="checkbox" name="terms" required />
-      <label for="terms">sign your life away. . . again.</label>
-  </form>
-</div>`;
-}
+    function generateQuestion(arr, index) {
+            $(".questionDiv").html(generateQuizString(arr, index));
+            $(".score").html(score);
+            $(".questionNumber").html(questionNumber);
+            $(".startQuiz").hide();
+            $(".scoreInfo").show();
+            $(".questionDiv").show();
+            $(".correctAnswer").hide();
+            $(".wrongAnswer").hide();
+    }
 
-function quizConclusion(){
-  return `<div class="quiz-conclusion">
-  <h2> Quiz Completed</h2>
-  <p>Congratulations ${name}!</p>
-  <p>Your final score was ${score} out of 100!</p>
-  <p>You answered ${wrongScore} questions wrong.</p>
-  <form class="js-quiz-app-form-bottons" id="js-quiz-app-form-bottons">
-      <button class="exit-button" type="button">Exit</button>
-      <button class="start-quiz-button" type="submit">Restart Quiz</button>
-  </form>
-</div>`;
-}
+    function startQuiz() {
+        $(".startQuiz").on('click', '.startButton', function(event) {
+            updateQuestionNumber();
+            $(".score").html(score);
+            $(".questionNumber").html(questionNumber);
+            $(".startQuiz").hide();
+            $(".scoreInfo").show();
+            $(".questionDiv").show();
+            generateQuestion(popQuiz, index);
+        })
+    }
 
-function renderList(){
-  event.preventDefault();
-  generateQView();
-  //let html = generateQView();
-  //console.log(html);
-  //$('.main').html(html);
-}
+    function finishQuiz() {
+        $(".startQuiz").show();
+        $(".startQuiz").html(`<p>Your final score is: ${score}</p>`);
+        $(".scoreInfo").hide();
+        $(".questionDiv").hide();
+        $(".correctAnswer").hide();
+        $(".wrongAnswer").hide();
+    }
 
-function main() {
-  $('main').html(generateStartPage());
-}
+    function continueQuiz() {
+        updateQuestionNumber();
+        if (questionNumber <= popQuiz.length) {
+        generateQuestion(popQuiz, index);
+        } else {
+            finishQuiz();
+        }
+    }
 
-function SubmitAnswer(event) {
-  event.preventDefault();
-  console.log("answer submitted!");
-  let answer = $('input[name=answers]:checked').val();
-  if(store.popQuiz[store.currentQuestions].correctAnswer == answer){
-    alert(`You are correct!`);
-  } else {
-    alert(`oOf! The correct answer is: ${store.popQuiz[currentQuestion].correctAnswer}.`)
-  }
-  store.currentQuestion++;
-  renderList();
-}
+    function correctAnswer() {
 
-function completeItem(){
-  console.log($(this).parent());
-  alert('complete');
-  renderList();
-}
+        var correctAnswerString;
+        if (questionNumber < popQuiz.length) {
+            correctAnswerString = `<p>Your answer is right!!!</p><br><div><button class="nextQuestion">Next Question</button></div>`;
+        } else {
+            correctAnswerString = `<p>Your answer is right!!!</p><br>`;
+        }
+        return correctAnswerString;
+    }
 
-//Requirements:
-//Button to start quiz
-  //when startQuiz button is clicked
-  //verify name was typed
-  //has check box been checked
-  //main()
-//user cannot skip questions without answering
-//answer 5+ questions of multiple choice
-//display current question number and ratio to total questions
-//see current test score
-//what happens if the answer is correct
-//what happens if the answer is wrong
-//received modal feedback, show correct answer
-//move to the next question on answer submit
-//end page / display total score
-//start new quiz
+    function wrongAnswer(arr, index) {
 
-//Technical Requirements:
-//Render answer choices in a <form>
-//use semantic HTML along with CSS and jQuery
-//be accessible as possible
-//associate `label` tags with inputs
-//use responsive design
-//be fully useable by keyboard tab through
+        var wrongAnswerString; 
+        if (questionNumber < popQuiz.length) {
+            wrongAnswerString = `<p>Oops! Your answer is wrong!!!</p><p>Correct answer is: ${arr[index].correctAnswer}</p><br><div><button class="nextQuestion">Next Question</button></div>`;
+        } else {
+            wrongAnswerString = `<p>Oops! Your answer is wrong!!!</p><p>Correct answer is: ${arr[index].correctAnswer}</p><br><div><button>See Final Score</button></div>`;
+        }
+        
+        return wrongAnswerString;
+    }
 
-$('main').on('click','.start-quiz-button', function() {
-  renderList();
-});
+    function checkAnswer(arr, index) {
+        var radioValue = $('input[name="choice"]:checked').val();
+        if(!radioValue)
+        {
+          alert("Please select an aswer to continue");
+          return false;
+        }
+        if (radioValue === arr[index].correctAnswer) {
+            updateScore();
+            $(".score").html(score);
+            $(".startQuiz").hide();
+            $(".questionDiv").hide();
+            $(".wrongAnswer").hide();
+            $(".correctAnswer").show();
+            $(".correctAnswer").html(correctAnswer());
+        } else {
+            $(".startQuiz").hide();
+            $(".questionDiv").hide();
+            $(".correctAnswer").hide();
+            $(".wrongAnswer").show();
+            $(".wrongAnswer").html(wrongAnswer(arr, index));
+                
+        }
+    }
 
-$('main').on('submit', '.js-quiz-app-form-name', SubmitAnswer);
+    function submitAnswer() {
+        $(".questionDiv").on("click", ".submitAnswer", function(event){
+        event.preventDefault();
+        checkAnswer(popQuiz, index);
+        })
+    }
 
-$(function() { main() });
+    function nextQuestion() {
+        $(".correctAnswer, .wrongAnswer").on("click",".nextQuestion", function(event) {
+            updateIndex();
+            continueQuiz();
+          })
+    }
+
+    function handleQuizApp() {
+        quizIntro();
+        startQuiz();
+        submitAnswer();
+        nextQuestion();
+    }
+
+    $(handleQuizApp);
