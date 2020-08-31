@@ -62,15 +62,6 @@ document.write('<script type="text/javascript" src="store.js" ></script>');
         })
     }
 
-    function finishQuiz() {
-        $(".startQuiz").show();
-        $(".startQuiz").html(`<p>Your final score is: ${score}</p>`);
-        $(".scoreInfo").hide();
-        $(".questionDiv").hide();
-        $(".correctAnswer").hide();
-        $(".wrongAnswer").hide();
-    }
-
     function continueQuiz() {
         updateQuestionNumber();
         if (questionNumber <= popQuiz.length) {
@@ -97,7 +88,7 @@ document.write('<script type="text/javascript" src="store.js" ></script>');
         if (questionNumber < popQuiz.length) {
             wrongAnswerString = `<p>Oops! Your answer is wrong!!!</p><p>Correct answer is: ${arr[index].correctAnswer}</p><br><div><button class="nextQuestion">Next Question</button></div>`;
         } else {
-            wrongAnswerString = `<p>Oops! Your answer is wrong!!!</p><p>Correct answer is: ${arr[index].correctAnswer}</p><br><div><button>See Final Score</button></div>`;
+            wrongAnswerString = `<p>Oops! Your answer is wrong!!!</p><p>Correct answer is: ${arr[index].correctAnswer}</p><br><div>Final Score : ${score}<br><button class="nextQuestion">Restart Quiz</button></div>`;
         }
         
         return wrongAnswerString;
@@ -142,9 +133,29 @@ document.write('<script type="text/javascript" src="store.js" ></script>');
           })
     }
 
+    function resetQuiz() {
+        $(".questionDiv, .startQuiz, .correctAnswer, .wrongAnswer").on("click", ".resetQuiz", function(event){
+            event.preventDefault();
+            score = 0;
+            questionNumber = 1;
+            index = 0;
+            generateQuestion(popQuiz, index);
+        })
+    }
+    
+    function finishQuiz() {
+        $(".startQuiz").show();
+        $(".startQuiz").html(`<p>Your final score is: ${score}</p><button class="resetQuiz">Take The Quiz Again</button>`);
+        $(".scoreInfo").hide();
+        $(".questionDiv").hide();
+        $(".correctAnswer").hide();
+        $(".wrongAnswer").hide();
+    }
+
     function handleQuizApp() {
         quizIntro();
         startQuiz();
+        resetQuiz();
         submitAnswer();
         nextQuestion();
     }
